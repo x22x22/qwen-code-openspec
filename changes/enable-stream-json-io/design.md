@@ -11,7 +11,18 @@
 3. **部分消息**：当启用 `--include-partial-messages` 时，核心在生成 `assistant` 动态内容时发送 `stream_event` 与部分 `assistant` 内容；否则仅发送完整消息。
 4. **错误处理**：解析失败时抛出带 exit code 的 `FatalError`，输出符合规范的 `control_response.error` 或 `result.is_error=true` 事件，以便 SDK 感知。
 
+## 实施进展
+- CLI 现已在 `--input-format/--output-format stream-json` 下走 JSONL 管线，支持 `--include-partial-messages` 的增量事件。
+- 新增 `StreamJsonWriter`、`runStreamJsonSession`，可在无初始 prompt 时常驻等待多轮输入，处理 `control_request.initialize` 与 `control_request.interrupt`。
+- 非交互模式链路复用现有 `runNonInteractive`，输出 `assistant`、`result` 事件并回写工具结果/错误。
+- 补充单元测试覆盖参数解析、输入解析、常驻会话与控制请求。
+- 已交付的测试脚本包括：
+  - `packages/cli/src/config/config.test.ts`（参数解析、模式判定）
+  - `packages/cli/src/nonInteractiveCli.test.ts`（stream-json 输出、增量与工具回执）
+  - `packages/cli/src/streamJson/input.test.ts`（输入解析与错误处理）
+  - `packages/cli/src/streamJson/session.test.ts`（常驻会话、多轮消息、中断控制）
+
 ## 待确认
-- `docs/rfc` 描述的 `initialize` 握手与错误语义需确认是否已有实现，若缺失需新增控制请求处理链路。
-- 需要评估 `packages/core` 是否已具备事件驱动接口，或需新增转换层。
-- 需要支持在未提供初始 prompt 时以 `stream-json` 模式启动并保持 CLI 常驻，直到收到显式退出（Ctrl+D/EOF 或控制请求）或发生错误。
+- `docs/rfc` 描述的完整控制通道仍待补齐：CLI 侧尚未实现 `can_use_tool`、`hook_callback`、`mcp_message` 等 `control_request` 子类型的桥接。
+- 需要评估 `packages/core` 是否已具备事件驱动接口，或需新增转换层，以便输出 `system` 初始化消息、`usage/duration` 统计等高级字段。
+- `stream_event` 当前仅覆盖文本增量，后续若要对齐 Claude 还需支持 `thinking_delta`、工具调用增量、`message_start`/`content_block_*` 的完整生命周期封装。

@@ -18,10 +18,11 @@
 ### Requirement: CLI 处理控制通道输入
 该需求要求 CLI MUST 能够响应来自 SDK 的控制请求。
 #### Scenario: SDK 通过 STDIN 发送 control_request
-- CLI 接收 `type=control_request` 的输入对象，并基于 `request.subtype` 执行相应逻辑（`initialize`、`interrupt`、`set_permission_mode`、`set_model` 等）。
-- 对于 `initialize` 请求，CLI 在完成初始化后输出对应的 `control_response.success`，payload 包含 RFC 规定的字段。
+- CLI 接收 `type=control_request` 的输入对象，并基于 `request.subtype` 执行相应逻辑（`initialize`、`interrupt`、`can_use_tool`、`hook_callback`、`mcp_message`、`set_permission_mode`、`set_model` 等）。
+- 对于 `initialize` 请求，CLI 在完成初始化后输出对应的 `control_response.success`，payload 包含 RFC 规定的字段，并输出一条 `system` 初始化消息广播环境、工具、权限模式等元数据。
+- 对于 `interrupt` 请求，CLI 输出 `control_response.success` 并优雅结束当前回合；当 CLI 主动放弃等待时，会发送 `control_cancel_request`，SDK 应停止对该 `request_id` 写回结果。
+- 对于 `can_use_tool`、`hook_callback`、`mcp_message` 等请求，CLI SHALL 与核心工具调度/Hook/MCP 通道打通，转发请求并输出成功或错误回执。
 - 对于未知或不支持的 `request.subtype`，CLI 输出 `control_response.error`，并保持进程继续运行。
-- CLI 在必要时发送 `control_cancel_request` 表示放弃等待某个请求的响应。
 
 ### Requirement: CLI 报文解析错误处理
 该需求确保 CLI SHALL 在输入异常时提供规范化错误反馈。
