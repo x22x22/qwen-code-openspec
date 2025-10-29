@@ -1,0 +1,17 @@
+# Diff for .gitignore
+diff --git a/.gitignore b/.gitignore
+index 92341b1e..6bec4111 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -48,4 +48,8 @@ logs/
+ # GHA credentials
+ gha-creds-*.json
+ 
+-QWEN.md
+\ No newline at end of file
++QWEN.md
++
++__pycache__/
++*.py[codz]
++*$py.class
+\ No newline at end of file

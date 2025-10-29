@@ -1,0 +1,54 @@
+# Diff for packages/core/src/config/config.ts
+diff --git a/packages/core/src/config/config.ts b/packages/core/src/config/config.ts
+index 5065eb17..96446514 100644
+--- a/packages/core/src/config/config.ts
++++ b/packages/core/src/config/config.ts
+@@ -173,6 +173,9 @@ export interface ConfigParameters {
+   sandbox?: SandboxConfig;
+   targetDir: string;
+   debugMode: boolean;
++  inputFormat?: 'text' | 'stream-json';
++  outputFormat?: 'text' | 'stream-json';
++  includePartialMessages?: boolean;
+   question?: string;
+   fullContext?: boolean;
+   coreTools?: string[];
+@@ -259,6 +262,9 @@ export class Config {
+   private readonly targetDir: string;
+   private workspaceContext: WorkspaceContext;
+   private readonly debugMode: boolean;
++  private readonly inputFormat: 'text' | 'stream-json';
++  private readonly outputFormat: 'text' | 'stream-json';
++  private readonly includePartialMessages: boolean;
+   private readonly question: string | undefined;
+   private readonly fullContext: boolean;
+   private readonly coreTools: string[] | undefined;
+@@ -354,6 +360,9 @@ export class Config {
+       params.includeDirectories ?? [],
+     );
+     this.debugMode = params.debugMode;
++    this.inputFormat = params.inputFormat ?? 'text';
++    this.outputFormat = params.outputFormat ?? 'text';
++    this.includePartialMessages = params.includePartialMessages ?? false;
+     this.question = params.question;
+     this.fullContext = params.fullContext ?? false;
+     this.coreTools = params.coreTools;
+@@ -647,6 +656,18 @@ export class Config {
+     return this.debugMode;
+   }
+ 
++  getInputFormat(): 'text' | 'stream-json' {
++    return this.inputFormat;
++  }
++
++  getOutputFormat(): 'text' | 'stream-json' {
++    return this.outputFormat;
++  }
++
++  getIncludePartialMessages(): boolean {
++    return this.includePartialMessages;
++  }
++
+   getQuestion(): string | undefined {
+     return this.question;
+   }

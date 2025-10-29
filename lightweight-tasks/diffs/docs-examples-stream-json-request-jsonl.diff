@@ -1,0 +1,9 @@
+# Diff for docs/examples/stream-json/request.jsonl
+diff --git a/docs/examples/stream-json/request.jsonl b/docs/examples/stream-json/request.jsonl
+new file mode 100644
+index 00000000..b563cafc
+--- /dev/null
++++ b/docs/examples/stream-json/request.jsonl
+@@ -0,0 +1,2 @@
++{"type":"control_request","request_id":"req-init-1","request":{"subtype":"initialize","hooks":null}}
++{"type":"user","message":{"role":"user","content":[{"type":"text","text":"请阅读 README.md 并总结三个关键特性。"}]}}
