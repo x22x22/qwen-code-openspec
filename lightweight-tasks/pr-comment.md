@@ -74,3 +74,15 @@ Given this, I believe we can consider combining it with `writer` to form a strea
 ```comment
 Seeing that `session` does a lot of message routing work, just leave a questiong here in case I'm missing something: since we already have a `controller.ts` that handles control_request, can we put it there to make the implementation clearer?
 ```
+
+```comment
+Thanks for your contribution!
+[#838](https://github.com/QwenLM/qwen-code/pull/838) is being synchronized with upstream updates and is expected to be a significant change. We can merge this PR after the synchronization is completed.
+The current pull request (PR) contains quite a bit of content. We recommend that you prioritize the core stream JSON functionality and split the large PR into several manageable iterations.
+
+Please take the time to clean up the docs; we'll update them once the functionality is stable.
+Examples can be submitted as separate PRs; these PRs will not be closed.
+RFC docs can be archived in dicussions if you prefer.
+The current PR still requires some refactoring.
+[google-gemini/gemini-cli#8016](https://github.com/google-gemini/gemini-cli/issues/8016) The non-interactive mode, as a pre-SDK implementation, currently has some issues. Our implementation has diverged from the upstream implementation, so we need to monitor and address them.
+```
