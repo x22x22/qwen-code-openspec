@@ -1,0 +1,26 @@
+# Diff for packages/cli/package.json
+diff --git a/packages/cli/package.json b/packages/cli/package.json
+index 21dcc391..ca10a1d0 100644
+--- a/packages/cli/package.json
++++ b/packages/cli/package.json
+@@ -8,9 +8,20 @@
+   },
+   "type": "module",
+   "main": "dist/index.js",
++  "types": "dist/index.d.ts",
+   "bin": {
+     "qwen": "dist/index.js"
+   },
++  "exports": {
++    ".": {
++      "types": "./dist/index.d.ts",
++      "import": "./dist/index.js"
++    },
++    "./protocol": {
++      "types": "./dist/src/types/protocol.d.ts",
++      "import": "./dist/src/types/protocol.js"
++    }
++  },
+   "scripts": {
+     "build": "node ../../scripts/build_package.js",
+     "start": "node dist/index.js",

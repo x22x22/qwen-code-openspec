@@ -1,0 +1,10 @@
+# Diff for .gitignore
+diff --git a/.gitignore b/.gitignore
+index 2c3156b9..2484d9e8 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -57,3 +57,4 @@ gha-creds-*.json
+ 
+ # Log files
+ patch_output.log
++QWEN.md

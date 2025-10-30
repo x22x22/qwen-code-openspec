@@ -1,0 +1,21 @@
+# Diff for packages/core/src/output/types.ts
+diff --git a/packages/core/src/output/types.ts b/packages/core/src/output/types.ts
+index 08477d21..4a300a43 100644
+--- a/packages/core/src/output/types.ts
++++ b/packages/core/src/output/types.ts
+@@ -6,9 +6,15 @@
+ 
+ import type { SessionMetrics } from '../telemetry/uiTelemetry.js';
+ 
++export enum InputFormat {
++  TEXT = 'text',
++  STREAM_JSON = 'stream-json',
++}
++
+ export enum OutputFormat {
+   TEXT = 'text',
+   JSON = 'json',
++  STREAM_JSON = 'stream-json',
+ }
+ 
+ export interface JsonError {

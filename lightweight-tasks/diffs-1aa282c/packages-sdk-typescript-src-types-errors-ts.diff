@@ -1,0 +1,34 @@
+# Diff for packages/sdk/typescript/src/types/errors.ts
+diff --git a/packages/sdk/typescript/src/types/errors.ts b/packages/sdk/typescript/src/types/errors.ts
+new file mode 100644
+index 00000000..137893cd
+--- /dev/null
++++ b/packages/sdk/typescript/src/types/errors.ts
+@@ -0,0 +1,27 @@
++/**
++ * Error types for SDK
++ */
++
++/**
++ * Error thrown when an operation is aborted via AbortSignal
++ */
++export class AbortError extends Error {
++  constructor(message = 'Operation aborted') {
++    super(message);
++    this.name = 'AbortError';
++    Object.setPrototypeOf(this, AbortError.prototype);
++  }
++}
++
++/**
++ * Check if an error is an AbortError
++ */
++export function isAbortError(error: unknown): error is AbortError {
++  return (
++    error instanceof AbortError ||
++    (typeof error === 'object' &&
++      error !== null &&
++      'name' in error &&
++      error.name === 'AbortError')
++  );
++}

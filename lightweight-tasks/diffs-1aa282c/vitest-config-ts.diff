@@ -1,0 +1,13 @@
+# Diff for vitest.config.ts
+diff --git a/vitest.config.ts b/vitest.config.ts
+index 20ec6b90..f9602bac 100644
+--- a/vitest.config.ts
++++ b/vitest.config.ts
+@@ -6,6 +6,7 @@ export default defineConfig({
+       'packages/cli',
+       'packages/core',
+       'packages/vscode-ide-companion',
++      'packages/sdk/typescript',
+       'integration-tests',
+       'scripts',
+     ],
